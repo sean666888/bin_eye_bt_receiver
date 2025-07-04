@@ -31,4 +31,5 @@ chrono = { version = "0.4", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
 serde-jsonlines = { version = "0.5.0", features = ["async"] }
 futures = "0.3"
-enigo = "*"
+enigo = { features = ["wayland"], git = "https://github.com/enigo-rs/enigo.git", rev = "e5773b56a9383e30ac215a0bd40250bc30d7f54f" }
+percent-encoding-rfc3986 = "0.1.3"
