@@ -13,10 +13,17 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        BUILD_TARGET: [release] # refers to a cargo profile
     steps:
     - uses: actions/checkout@v4
     - name: Deps
       run: sudo apt-get install libdbus-1-dev pkg-config libxdo-dev libxkbcommon-dev -y
     - name: Build
-      run: cargo build --verbose --release
+      run: cargo build --verbose --profile ${{ matrix.BUILD_TARGET }}
+    - name: Upload release artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: bin_eye_bt_receiver
+        path: target/${{ matrix.BUILD_TARGET }}/bin_eye_bt_receiver
