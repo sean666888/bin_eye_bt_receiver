@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Deps
-      run: apt-get install libdbus-1-dev pkg-config libxdo-dev -y
+      run: sudo apt-get install libdbus-1-dev pkg-config libxdo-dev -y
     - name: Build
       run: cargo build --verbose --release
