@@ -20,6 +20,9 @@ struct Args {
     /// Enable keyboard output
     #[arg(short, long, default_value_t = false)]
     keyboard: bool,
+    /// Disable appending a CR character (Return/Enter) after the barcode contents
+    #[arg(short, long, default_value_t = false)]
+    no_carriage_return: bool,
 }
 
 const LOG_UNSAFE_CHARS: &'static AsciiSet = &rfc3986::CONTROLS.add(b'\\').add(b'"');
@@ -92,6 +95,9 @@ async fn main() -> bluer::Result<()> {
 
             if args.keyboard {
                 enigo.text(s).unwrap_or_else(|e| error!("{}", e));
+                if !args.no_carriage_return {
+                    enigo.text("\r").unwrap_or_else(|e| error!("{}", e));
+                }
             }
         }
     }
